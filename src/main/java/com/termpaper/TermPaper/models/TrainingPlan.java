@@ -1,16 +1,19 @@
 package com.termpaper.TermPaper.models;
 
+import jakarta.persistence.ManyToMany;
+
 import java.util.List;
 
-public class TrainigPlan {
+public class TrainingPlan {
     private int id;
     private String name;
-    private List<Training> trainigs;
+    @ManyToMany (mappedBy = "trainings")
+    private List<Training> trainings;
 
-    public TrainigPlan(int id, String name, List<Training> trainigs) {
+    public TrainingPlan(int id, String name, List<Training> trainigs) {
         this.id = id;
         this.name = name;
-        this.trainigs = trainigs;
+        this.trainings = trainigs;
     }
 
     public int getId() {
@@ -30,10 +33,10 @@ public class TrainigPlan {
     }
 
     public List<Training> getTrainigs() {
-        return trainigs;
+        return trainings;
     }
 
     public void setTrainigs(List<Training> trainigs) {
-        this.trainigs = trainigs;
+        this.trainings = trainigs;
     }
 }
