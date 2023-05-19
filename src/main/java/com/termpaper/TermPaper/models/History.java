@@ -16,6 +16,7 @@ public class History {
     @ManyToOne
     @JoinColumn(name = "trainingPlan_id")
     private TrainingPlan trainingPlan;
+    public History(){}
     public History(int id, Date date, int time, User user, TrainingPlan trainingPlan) {
         this.id = id;
         this.date = date;

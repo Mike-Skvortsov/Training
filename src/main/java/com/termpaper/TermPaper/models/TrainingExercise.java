@@ -2,8 +2,6 @@ package com.termpaper.TermPaper.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "trainingExercises")
 public class TrainingExercise {
@@ -13,15 +11,23 @@ public class TrainingExercise {
     private int sets;
     private int repeats;
     private short restTime;
-    @OneToMany(mappedBy = "trainingExercises")
-    private List<Exercise> exercises;
+    @OneToOne
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
+    @ManyToOne
+    @JoinColumn(name = "training_id")
+    private Training training;
+    public TrainingExercise()
+    {
 
-    public TrainingExercise(int id, int sets, int repeats, short restTime, List<Exercise> exercises) {
+    }
+    public TrainingExercise(int id, int sets, int repeats, short restTime, Training training, Exercise exercise) {
         this.id = id;
         this.sets = sets;
         this.repeats = repeats;
         this.restTime = restTime;
-        this.exercises = exercises;
+        this.training = training;
+        this.exercise = exercise;
     }
 
     public int getId() {
@@ -56,11 +62,19 @@ public class TrainingExercise {
         this.restTime = restTime;
     }
 
-    public List<Exercise> getExercises() {
-        return exercises;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

@@ -1,5 +1,5 @@
 package com.termpaper.TermPaper.models;
-enum Genre
+enum Gender
 {
     Male,
     Female

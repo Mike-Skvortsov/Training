@@ -1,31 +1,33 @@
 package com.termpaper.TermPaper.models;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name = "trainings")
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  int id;
+    private int id;
     private String name;
     private String description;
     private int time;
     private int progress;
     private boolean isActive;
-    @OneToMany(mappedBy = "trainings")
-    private TrainingExercise trainingExercise;
-    public Training(int id, int progress, int time, String descriprion, String name, boolean isActive, TrainingExercise trainingExercise)
-    {
+    @OneToMany(mappedBy = "training")
+    private List<TrainingExercise> trainingExercises;
+    public Training(){}
 
+    public Training(int id, String name, String description, int time, int progress, boolean isActive, List<TrainingExercise> trainingExercises) {
         this.id = id;
-        this.progress = progress;
-        this.time = time;
-        this.description = descriprion;
         this.name = name;
+        this.description = description;
+        this.time = time;
+        this.progress = progress;
         this.isActive = isActive;
-        this.trainingExercise = trainingExercise;
+        this.trainingExercises = trainingExercises;
     }
+
     public int getId() {
         return id;
     }
@@ -74,11 +76,11 @@ public class Training {
         isActive = active;
     }
 
-    public TrainingExercise getTrainingExercise() {
-        return trainingExercise;
+    public List<TrainingExercise> getTrainingExercises() {
+        return trainingExercises;
     }
 
-    public void setTrainingExercise(TrainingExercise trainingExercise) {
-        this.trainingExercise = trainingExercise;
+    public void setTrainingExercises(List<TrainingExercise> trainingExercises) {
+        this.trainingExercises = trainingExercises;
     }
 }

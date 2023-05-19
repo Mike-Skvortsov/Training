@@ -10,13 +10,19 @@ public class TrainingPlan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @ManyToMany (mappedBy = "trainings")
+    @ManyToMany
+    @JoinTable(
+            name = "trainingPlan_training",
+            joinColumns = @JoinColumn(name = "trainingPlan_id"),
+            inverseJoinColumns = @JoinColumn(name = "training_id")
+    )
     private List<Training> trainings;
+    public TrainingPlan(){}
 
-    public TrainingPlan(int id, String name, List<Training> trainigs) {
+    public TrainingPlan(int id, String name, List<Training> trainings) {
         this.id = id;
         this.name = name;
-        this.trainings = trainigs;
+        this.trainings = trainings;
     }
 
     public int getId() {
@@ -35,11 +41,11 @@ public class TrainingPlan {
         this.name = name;
     }
 
-    public List<Training> getTrainigs() {
+    public List<Training> getTrainings() {
         return trainings;
     }
 
-    public void setTrainigs(List<Training> trainigs) {
-        this.trainings = trainigs;
+    public void setTrainings(List<Training> trainings) {
+        this.trainings = trainings;
     }
 }

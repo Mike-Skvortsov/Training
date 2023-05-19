@@ -13,13 +13,18 @@ public class MuscleGroup {
     private String title;
     private String icon;
     @ManyToMany
-    private List<Exercise> exercise;
-
-    public MuscleGroup(int id, String title, String icon, Exercise exercise, List<Exercise> exercise1) {
+    @JoinTable(
+            name = "exercise_muscleGroup",
+            joinColumns = @JoinColumn(name = "muscleGroup_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_id")
+    )
+    private List<Exercise> exercises;
+    public MuscleGroup(){}
+    public MuscleGroup(int id, String title, String icon, List<Exercise> exercises) {
         this.id = id;
         this.title = title;
         this.icon = icon;
-        this.exercise = exercise1;
+        this.exercises = exercises;
     }
 
     public int getId() {
@@ -46,11 +51,11 @@ public class MuscleGroup {
         this.icon = icon;
     }
 
-    public List<Exercise> getExercise() {
-        return exercise;
+    public List<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setExercise(List<Exercise> exercise) {
-        this.exercise = exercise;
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

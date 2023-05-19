@@ -11,18 +11,21 @@ public class Exercise {
     private String name;
     private String description;
     private String image;
-    @ManyToMany
-    private List<MuscleGroup> muscleGroup;
-    @OneToOne(cascade = CascadeType.ALL)
-    private TrainingExercise exercise;
+    @ManyToMany(mappedBy = "exercises")
+    private List<MuscleGroup> muscleGroups;
+    @OneToOne(mappedBy = "exercise")
+    private TrainingExercise trainingExercise;
+    public Exercise()
+    {
 
-    public Exercise(int id, String name, String description, String image, List<MuscleGroup> muscleGroup, TrainingExercise exercise) {
+    }
+    public Exercise(int id, String name, String description, String image, List<MuscleGroup> muscleGroups, TrainingExercise trainingExercise) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
-        this.muscleGroup = muscleGroup;
-        this.exercise = exercise;
+        this.muscleGroups = muscleGroups;
+        this.trainingExercise = trainingExercise;
     }
 
     public int getId() {
@@ -57,19 +60,19 @@ public class Exercise {
         this.image = image;
     }
 
-    public List<MuscleGroup> getMuscleGroup() {
-        return muscleGroup;
+    public List<MuscleGroup> getMuscleGroups() {
+        return muscleGroups;
     }
 
-    public void setMuscleGroup(List<MuscleGroup> muscleGroup) {
-        this.muscleGroup = muscleGroup;
+    public void setMuscleGroups(List<MuscleGroup> muscleGroups) {
+        this.muscleGroups = muscleGroups;
     }
 
-    public TrainingExercise getExercise() {
-        return exercise;
+    public TrainingExercise getTrainingExercise() {
+        return trainingExercise;
     }
 
-    public void setExercise(TrainingExercise exercise) {
-        this.exercise = exercise;
+    public void setTrainingExercise(TrainingExercise trainingExercise) {
+        this.trainingExercise = trainingExercise;
     }
 }

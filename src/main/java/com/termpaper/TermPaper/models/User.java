@@ -10,20 +10,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String userName;
+    private String name;
     private String email;
-    private final Genre genre;
+    private Gender gender;
     private int age;
     private float height;
     private float weight;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<History> histories;
+    public User()
+    {
 
-    public User(int id, String userName, String email, Genre genre, int age, float height, float weight, List<History> histories) {
+    }
+
+    public User(int id, String name, String email, Gender gender, int age, float height, float weight, List<History> histories) {
         this.id = id;
-        this.userName = userName;
+        this.name = name;
         this.email = email;
-        this.genre = genre;
+        this.gender = gender;
         this.age = age;
         this.height = height;
         this.weight = weight;
@@ -38,13 +42,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getEmail() {
         return email;
@@ -52,10 +49,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Genre getGenre() {
-        return genre;
     }
 
     public int getAge() {
@@ -88,5 +81,21 @@ public class User {
 
     public void setHistories(List<History> histories) {
         this.histories = histories;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
