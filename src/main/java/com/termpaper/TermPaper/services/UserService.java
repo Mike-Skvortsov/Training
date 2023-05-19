@@ -3,6 +3,8 @@ import com.termpaper.TermPaper.models.User;
 import com.termpaper.TermPaper.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -10,9 +12,9 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    public User getUser(int id)
+    public Optional<User> getUser(int id)
     {
-        return null;
+        return userRepository.findById(id);
     }
     public Iterable<User> getAllUsers()
     {

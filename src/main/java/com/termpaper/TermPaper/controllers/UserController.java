@@ -4,8 +4,12 @@ import com.termpaper.TermPaper.models.User;
 import com.termpaper.TermPaper.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
 @RestController
 public class UserController {
     private final UserService userService;
@@ -14,8 +18,8 @@ public class UserController {
     {
         this.userService = userService;
     }
-    @GetMapping("/id")
-    public User getUser(@RequestParam int id)
+    @GetMapping("/{id}")
+    public Optional<User> getByIdUser(@PathVariable int id)
     {
         return userService.getUser(id);
     }
