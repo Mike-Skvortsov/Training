@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 @RestController
-@RequestMapping("exercise")
+@RequestMapping("/exercise")
 public class ExerciseController {
     private final ExerciseService exerciseService;
     @Autowired
@@ -27,5 +27,10 @@ public class ExerciseController {
     public Iterable<Exercise> getAllUsers()
     {
         return exerciseService.getAllExercises();
+    }
+    @GetMapping("/MuscleGroup/{id}")
+    public  Iterable<Exercise> getAllExercisesInMuscleGroup(@PathVariable int id)
+    {
+        return exerciseService.getAllExercisesInMuscleGroup(id);
     }
 }

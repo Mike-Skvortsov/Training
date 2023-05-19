@@ -10,8 +10,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
     @Autowired
+    private final UserService userService;
     public UserController(UserService userService)
     {
         this.userService = userService;
@@ -25,5 +25,10 @@ public class UserController {
     public Iterable<User> getAllUsers()
     {
         return userService.getAllUsers();
+    }
+    @PostMapping("/create")
+    public void createUser(@RequestBody User model)
+    {
+        userService.createUser(model);
     }
 }

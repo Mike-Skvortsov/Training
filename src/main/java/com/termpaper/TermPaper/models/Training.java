@@ -1,8 +1,9 @@
 package com.termpaper.TermPaper.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.List;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "trainings")
 public class Training {
@@ -14,7 +15,8 @@ public class Training {
     private int time;
     private int progress;
     private boolean isActive;
-    @OneToMany(mappedBy = "training")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "training", fetch = FetchType.LAZY)
     private List<TrainingExercise> trainingExercises;
     public Training(){}
 

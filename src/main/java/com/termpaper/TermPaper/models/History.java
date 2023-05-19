@@ -1,7 +1,9 @@
 package com.termpaper.TermPaper.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.Date;
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "histories")
 public class History {
@@ -10,10 +12,12 @@ public class History {
     private int id;
     private Date date;
     private int time;
-    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainingPlan_id")
     private TrainingPlan trainingPlan;
     public History(){}
@@ -22,6 +26,13 @@ public class History {
         this.date = date;
         this.time = time;
         this.user = user;
+        this.trainingPlan = trainingPlan;
+    }
+    public TrainingPlan getTrainingPlan() {
+        return trainingPlan;
+    }
+
+    public void setTrainingPlan(TrainingPlan trainingPlan) {
         this.trainingPlan = trainingPlan;
     }
 
@@ -55,14 +66,6 @@ public class History {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public TrainingPlan getTrainingPlan() {
-        return trainingPlan;
-    }
-
-    public void setTrainingPlan(TrainingPlan trainingPlan) {
-        this.trainingPlan = trainingPlan;
     }
 }
 

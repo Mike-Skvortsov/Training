@@ -1,37 +1,38 @@
 package com.termpaper.TermPaper.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.List;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String email;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private int age;
     private float height;
     private float weight;
-    @OneToMany(mappedBy = "user")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<History> histories;
     public User()
     {
 
     }
 
-    public User(int id, String name, String email, Gender gender, int age, float height, float weight, List<History> histories) {
-        this.id = id;
+    public User(String name, String email, Gender gender, int age, float height, float weight) {
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.age = age;
         this.height = height;
         this.weight = weight;
-        this.histories = histories;
     }
 
     public int getId() {

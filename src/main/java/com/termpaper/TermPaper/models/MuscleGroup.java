@@ -1,9 +1,10 @@
 package com.termpaper.TermPaper.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.List;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "muscleGroups")
 public class MuscleGroup {
@@ -12,19 +13,19 @@ public class MuscleGroup {
     private int id;
     private String title;
     private String icon;
-    @ManyToMany
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "exercise_muscleGroup",
-            joinColumns = @JoinColumn(name = "muscleGroup_id"),
+            name = "exercise_muscle_group",
+            joinColumns = @JoinColumn(name = "muscle_group_id"),
             inverseJoinColumns = @JoinColumn(name = "exercise_id")
     )
     private List<Exercise> exercises;
     public MuscleGroup(){}
-    public MuscleGroup(int id, String title, String icon, List<Exercise> exercises) {
+    public MuscleGroup(int id, String title, String icon) {
         this.id = id;
         this.title = title;
         this.icon = icon;
-        this.exercises = exercises;
     }
 
     public int getId() {

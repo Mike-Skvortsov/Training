@@ -1,8 +1,13 @@
 package com.termpaper.TermPaper.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.List;
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "trainingPlans")
 public class TrainingPlan {
@@ -10,7 +15,8 @@ public class TrainingPlan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @ManyToMany
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "trainingPlan_training",
             joinColumns = @JoinColumn(name = "trainingPlan_id"),
