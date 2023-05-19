@@ -1,10 +1,9 @@
 package com.termpaper.TermPaper.models;
+import jakarta.persistence.*;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 @Entity
+@Table(name = "exercises")
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,12 +11,18 @@ public class Exercise {
     private String name;
     private String description;
     private String image;
+    @ManyToMany
+    private List<MuscleGroup> muscleGroup;
+    @OneToOne(cascade = CascadeType.ALL)
+    private TrainingExercise exercise;
 
-    public Exercise(int id, String name, String description, String image) {
+    public Exercise(int id, String name, String description, String image, List<MuscleGroup> muscleGroup, TrainingExercise exercise) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
+        this.muscleGroup = muscleGroup;
+        this.exercise = exercise;
     }
 
     public int getId() {
@@ -51,5 +56,20 @@ public class Exercise {
     public void setImage(String image) {
         this.image = image;
     }
-}
 
+    public List<MuscleGroup> getMuscleGroup() {
+        return muscleGroup;
+    }
+
+    public void setMuscleGroup(List<MuscleGroup> muscleGroup) {
+        this.muscleGroup = muscleGroup;
+    }
+
+    public TrainingExercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(TrainingExercise exercise) {
+        this.exercise = exercise;
+    }
+}

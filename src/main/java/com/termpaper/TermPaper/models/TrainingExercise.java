@@ -1,20 +1,35 @@
 package com.termpaper.TermPaper.models;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "trainingExercises")
 public class TrainingExercise {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int sets;
     private int repeats;
     private short restTime;
-    private int exerciseId;
-    private Exercise exercise;
+    @OneToMany(mappedBy = "trainingExercises")
+    private List<Exercise> exercises;
 
-    public TrainingExercise(int id, int sets, int repeats, short restTime, int exerciseId, Exercise exercise) {
+    public TrainingExercise(int id, int sets, int repeats, short restTime, List<Exercise> exercises) {
         this.id = id;
         this.sets = sets;
         this.repeats = repeats;
         this.restTime = restTime;
-        this.exerciseId = exerciseId;
-        this.exercise = exercise;
+        this.exercises = exercises;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getSets() {
@@ -41,27 +56,11 @@ public class TrainingExercise {
         this.restTime = restTime;
     }
 
-    public int getExerciseId() {
-        return exerciseId;
+    public List<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
-    }
-
-    public Exercise getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

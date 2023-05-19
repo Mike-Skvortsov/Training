@@ -1,14 +1,25 @@
 package com.termpaper.TermPaper.models;
 
-public class MusckleGroup {
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table (name = "muscleGroups")
+public class MuscleGroup {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String title;
     private String icon;
-    public MusckleGroup(int id, String title, String icon)
-    {
+    @ManyToMany
+    private List<Exercise> exercise;
+
+    public MuscleGroup(int id, String title, String icon, Exercise exercise, List<Exercise> exercise1) {
         this.id = id;
         this.title = title;
         this.icon = icon;
+        this.exercise = exercise1;
     }
 
     public int getId() {
@@ -33,5 +44,13 @@ public class MusckleGroup {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public List<Exercise> getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(List<Exercise> exercise) {
+        this.exercise = exercise;
     }
 }

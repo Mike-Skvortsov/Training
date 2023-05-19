@@ -1,10 +1,13 @@
 package com.termpaper.TermPaper.models;
 
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
-
+@Entity
+@Table (name = "trainingPlans")
 public class TrainingPlan {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     @ManyToMany (mappedBy = "trainings")

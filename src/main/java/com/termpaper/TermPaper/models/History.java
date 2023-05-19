@@ -3,6 +3,7 @@ package com.termpaper.TermPaper.models;
 import jakarta.persistence.*;
 import java.util.Date;
 @Entity
+@Table (name = "histories")
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,9 +14,9 @@ public class History {
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "training_id")
-    private TrainigPlan trainingPlan;
-    public History(int id, Date date, int time, User user, TrainigPlan trainingPlan) {
+    @JoinColumn(name = "trainingPlan_id")
+    private TrainingPlan trainingPlan;
+    public History(int id, Date date, int time, User user, TrainingPlan trainingPlan) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -55,11 +56,11 @@ public class History {
         this.user = user;
     }
 
-    public TrainigPlan getTrainingPlan() {
+    public TrainingPlan getTrainingPlan() {
         return trainingPlan;
     }
 
-    public void setTrainingPlan(TrainigPlan trainingPlan) {
+    public void setTrainingPlan(TrainingPlan trainingPlan) {
         this.trainingPlan = trainingPlan;
     }
 }
