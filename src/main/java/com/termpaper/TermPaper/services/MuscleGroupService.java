@@ -2,9 +2,10 @@ package com.termpaper.TermPaper.services;
 
 import com.termpaper.TermPaper.models.MuscleGroup;
 import com.termpaper.TermPaper.repositories.MuscleGroupRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class MuscleGroupService {
     private final MuscleGroupRepository muscleGroupRepository;
     public MuscleGroupService(MuscleGroupRepository muscleGroupRepository) {

@@ -4,16 +4,13 @@ import com.termpaper.TermPaper.models.Exercise;
 import com.termpaper.TermPaper.models.MuscleGroup;
 import com.termpaper.TermPaper.services.MuscleGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/MuscleGroup")
+@RequestMapping("/muscleGroup")
 public class MuscleGroupController {
     private final MuscleGroupService muscleGroupService;
     @Autowired
@@ -35,6 +32,7 @@ public class MuscleGroupController {
         }
         return muscleGroup;
     }
+    @PostMapping("/create")
     public int CreateMuscleGroup(MuscleGroup model)
     {
         muscleGroupService.create(model);
