@@ -1,8 +1,9 @@
 package com.termpaper.TermPaper.models;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -11,8 +12,11 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull(message = "Name is required")
     private String name;
+    @NotNull(message = "Description is required")
     private String description;
+    @NotBlank(message = "Image is required")
     private String image;
     @JsonIdentityReference(alwaysAsId = false)
     @OneToOne(mappedBy = "exercise", fetch = FetchType.LAZY)

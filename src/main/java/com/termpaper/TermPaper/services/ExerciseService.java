@@ -4,12 +4,14 @@ import com.termpaper.TermPaper.models.Exercise;
 import com.termpaper.TermPaper.models.MuscleGroup;
 import com.termpaper.TermPaper.repositories.ExerciseRepository;
 import com.termpaper.TermPaper.repositories.MuscleGroupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Optional;
 @Service
 public class ExerciseService {
+    @Autowired
     private final ExerciseRepository exerciseRepository;
     public ExerciseService(ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;

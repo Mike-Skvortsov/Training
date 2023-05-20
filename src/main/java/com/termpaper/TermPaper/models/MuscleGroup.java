@@ -2,8 +2,8 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -15,7 +15,7 @@ public class MuscleGroup {
     @NotBlank(message = "Title is required")
     private String title;
     @NotBlank(message = "Icon is required")
-    private String icon;
+    private byte[] icon;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -25,7 +25,7 @@ public class MuscleGroup {
     )
     private List<Exercise> exercises;
     public MuscleGroup(){}
-    public MuscleGroup(int id, String title, String icon) {
+    public MuscleGroup(int id, String title, byte[] icon) {
         this.id = id;
         this.title = title;
         this.icon = icon;
@@ -47,11 +47,11 @@ public class MuscleGroup {
         this.title = title;
     }
 
-    public String getIcon() {
+    public byte[] getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(byte[] icon) {
         this.icon = icon;
     }
 

@@ -13,6 +13,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/muscleGroup")
 public class MuscleGroupController {
+    @Autowired
+
     private final MuscleGroupService muscleGroupService;
     private final ExerciseService exerciseService;
     @Autowired
@@ -20,7 +22,7 @@ public class MuscleGroupController {
         this.muscleGroupService = muscleGroupService;
         this.exerciseService = exerciseService;
     }
-    @GetMapping("/all")
+    @GetMapping()
     public Iterable<MuscleGroup> getFullMuscleGroup()
     {
         return muscleGroupService.getAllMuscleGroup();

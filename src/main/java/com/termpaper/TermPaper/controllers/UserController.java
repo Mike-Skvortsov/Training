@@ -2,23 +2,21 @@ package com.termpaper.TermPaper.controllers;
 
 import com.termpaper.TermPaper.models.User;
 import com.termpaper.TermPaper.services.UserService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.ValidationException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 @Validated
 public class UserController {
+    @Autowired
+
     private final UserService userService;
     public UserController(UserService userService)
     {

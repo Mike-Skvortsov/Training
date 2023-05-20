@@ -2,11 +2,13 @@ package com.termpaper.TermPaper.services;
 
 import com.termpaper.TermPaper.models.MuscleGroup;
 import com.termpaper.TermPaper.repositories.MuscleGroupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
 public class MuscleGroupService {
+    @Autowired
     private final MuscleGroupRepository muscleGroupRepository;
     public MuscleGroupService(MuscleGroupRepository muscleGroupRepository) {
         this.muscleGroupRepository = muscleGroupRepository;
