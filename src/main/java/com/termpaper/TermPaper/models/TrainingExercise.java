@@ -54,39 +54,42 @@ public class TrainingExercise {
         return sets;
     }
 
-    public void setSets(int sets) {
-        this.sets = sets;
-    }
-
     public int getRepeats() {
         return repeats;
+    }
+
+
+    public short getRestTime() {
+        return restTime;
+    }
+
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
     }
 
     public void setRepeats(int repeats) {
         this.repeats = repeats;
     }
 
-    public short getRestTime() {
-        return restTime;
-    }
-
     public void setRestTime(short restTime) {
         this.restTime = restTime;
     }
 
-    public Exercise getExercise() {
-        return exercise;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
-    }
-
-    public Training getTraining() {
-        return training;
-    }
-
-    public void setTraining(Training training) {
-        this.training = training;
     }
 }

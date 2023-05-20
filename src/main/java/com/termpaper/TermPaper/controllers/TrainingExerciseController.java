@@ -1,13 +1,13 @@
 package com.termpaper.TermPaper.controllers;
 
 import com.termpaper.TermPaper.models.TrainingExercise;
+import com.termpaper.TermPaper.models.TrainingPlan;
 import com.termpaper.TermPaper.services.TrainingExerciseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -30,5 +30,28 @@ public class TrainingExerciseController {
     public ResponseEntity<Optional<TrainingExercise>> getByIdTrainingExercise(@PathVariable int id)
     {
         return ResponseEntity.ok(trainingExerciseService.getByIdTrainingExercise(id));
+    }
+    @PostMapping("create")
+    public ResponseEntity<TrainingExercise> createUser(@RequestBody @Valid TrainingExercise model) {
+        return new ResponseEntity<>(trainingExerciseService.create(model), HttpStatus.CREATED);
+    }
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<TrainingExercise> updateUser(@PathVariable int id, @Valid @RequestBody TrainingExercise userDetails) {
+        TrainingExercise updatedUser = trainingExerciseService.updateTrainingExercise(id, userDetails);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id) {
+        boolean isDeleted = trainingExerciseService.deleteTrainingExerciseById(id);
+        if (isDeleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
