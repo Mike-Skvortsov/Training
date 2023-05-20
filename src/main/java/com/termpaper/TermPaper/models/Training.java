@@ -2,6 +2,8 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -10,6 +12,7 @@ public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name is required")
     private String name;
     private String description;
     private int time;

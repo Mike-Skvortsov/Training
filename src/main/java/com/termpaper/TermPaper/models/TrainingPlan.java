@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -14,6 +15,7 @@ public class TrainingPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name is required")
     private String name;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(fetch = FetchType.LAZY)

@@ -1,22 +1,24 @@
 package com.termpaper.TermPaper.controllers;
 
-import com.termpaper.TermPaper.models.Exercise;
 import com.termpaper.TermPaper.models.User;
 import com.termpaper.TermPaper.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 @Validated
 public class UserController {
-    @Autowired
     private final UserService userService;
     public UserController(UserService userService)
     {
@@ -32,9 +34,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
     @PostMapping("create")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User model) {
-        User createdUser = userService.createAndUpdateUser(model);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    public ResponseEntity<User> createUser(@RequestBody @Valid User model) {
+        return new ResponseEntity<>(userService.createAndUpdateUser(model), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @Valid @RequestBody User userDetails) {
