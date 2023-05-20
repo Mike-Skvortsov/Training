@@ -20,8 +20,13 @@ public class UserService {
     {
         return userRepository.findAll();
     }
-    public void createUser(User user)
+    public User createAndUpdateUser(User user)
     {
         userRepository.save(user);
+        return user;
+    }
+    public void deleteById(int id)
+    {
+        userRepository.deleteById(id);
     }
 }

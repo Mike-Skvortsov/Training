@@ -8,7 +8,7 @@ import java.util.Date;
 @Table (name = "histories")
 public class History {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date date;
     private int time;
