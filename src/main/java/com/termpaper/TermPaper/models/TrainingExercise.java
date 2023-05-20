@@ -2,6 +2,8 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "trainingExercises")
@@ -9,8 +11,14 @@ public class TrainingExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Min(value = 1, message = "Sets should be greater than 0")
+
     private int sets;
+    @Min(value = 1, message = "Sets should be greater than 0")
+
     private int repeats;
+    @Min(value = 1, message = "Sets should be greater than 0")
+
     private short restTime;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY)

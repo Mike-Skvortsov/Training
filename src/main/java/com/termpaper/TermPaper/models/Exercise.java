@@ -17,7 +17,7 @@ public class Exercise {
     @NotNull(message = "Description is required")
     private String description;
     @NotBlank(message = "Image is required")
-    private String image;
+    private byte[] image;
     @JsonIdentityReference(alwaysAsId = false)
     @OneToOne(mappedBy = "exercise", fetch = FetchType.LAZY)
     private TrainingExercise trainingExercise;
@@ -25,7 +25,7 @@ public class Exercise {
     {
 
     }
-    public Exercise(int id, String name, String description, String image, TrainingExercise trainingExercise) {
+    public Exercise(int id, String name, String description, byte[] image, TrainingExercise trainingExercise) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -64,11 +64,11 @@ public class Exercise {
         this.description = description;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

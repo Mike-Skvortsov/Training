@@ -22,13 +22,35 @@ public class UserService {
     {
         return userRepository.findAll();
     }
-    public User createAndUpdateUser(User user)
+    public User createUser(User user)
     {
         userRepository.save(user);
         return user;
     }
-    public void deleteById(int id)
-    {
-        userRepository.deleteById(id);
+    public User updateUser(int id, User userDetails) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+            user.setGender(userDetails.getGender());
+            user.setAge(userDetails.getAge());
+            user.setHeight(userDetails.getHeight());
+            user.setWeight(userDetails.getWeight());
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
     }
+
+    public boolean deleteUserById(int id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

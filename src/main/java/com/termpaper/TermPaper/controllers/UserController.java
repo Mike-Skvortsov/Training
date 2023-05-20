@@ -23,9 +23,9 @@ public class UserController {
         this.userService = userService;
     }
     @GetMapping("/{id}")
-    public Optional<User> getByIdUser(@PathVariable int id)
+    public ResponseEntity<Optional<User>> getByIdUser(@PathVariable int id)
     {
-        return userService.getUser(id);
+        return ResponseEntity.ok(userService.getUser(id));
     }
     @GetMapping
     public ResponseEntity<Iterable<User>> getAllUsers() {
@@ -33,30 +33,22 @@ public class UserController {
     }
     @PostMapping("create")
     public ResponseEntity<User> createUser(@RequestBody @Valid User model) {
-        return new ResponseEntity<>(userService.createAndUpdateUser(model), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.createUser(model), HttpStatus.CREATED);
     }
     @PutMapping("/edit/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @Valid @RequestBody User userDetails) {
-        Optional<User> optionalUser = userService.getUser(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setName(userDetails.getName());
-            user.setEmail(userDetails.getEmail());
-            user.setGender(userDetails.getGender());
-            user.setAge(userDetails.getAge());
-            user.setHeight(userDetails.getHeight());
-            user.setWeight(userDetails.getWeight());
-            userService.createAndUpdateUser(user);
-            return ResponseEntity.ok(user);
+        User updatedUser = userService.updateUser(id, userDetails);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
-        Optional<User> optionalUser = userService.getUser(id);
-        if (optionalUser.isPresent()) {
-            userService.deleteById(id);
+        boolean isDeleted = userService.deleteUserById(id);
+        if (isDeleted) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

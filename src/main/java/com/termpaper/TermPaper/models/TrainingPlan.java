@@ -10,20 +10,16 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
-@Table (name = "trainingPlans")
+@Table(name = "trainingPlans")
 public class TrainingPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Name is required")
     private String name;
+
     @JsonIdentityReference(alwaysAsId = true)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "trainingPlan_training",
-            joinColumns = @JoinColumn(name = "trainingPlan_id"),
-            inverseJoinColumns = @JoinColumn(name = "training_id")
-    )
+    @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Training> trainings;
     public TrainingPlan(){}
 

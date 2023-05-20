@@ -5,9 +5,10 @@ import com.termpaper.TermPaper.models.TrainingExercise;
 import com.termpaper.TermPaper.repositories.TrainingExerciseRepository;
 import com.termpaper.TermPaper.repositories.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class TrainingExerciseService {
     @Autowired
     private final TrainingExerciseRepository trainingExerciseRepository;
@@ -18,11 +19,11 @@ public class TrainingExerciseService {
     {
         trainingExerciseRepository.save(model);
     }
-    public Optional<TrainingExercise> getByIdTraining(int id)
+    public Optional<TrainingExercise> getByIdTrainingExercise(int id)
     {
         return trainingExerciseRepository.findById(id);
     }
-    public Iterable<TrainingExercise> getAllTraining()
+    public Iterable<TrainingExercise> getAllTrainingExercise()
     {
         return trainingExerciseRepository.findAll();
     }

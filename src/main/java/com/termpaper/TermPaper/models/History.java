@@ -2,6 +2,8 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+
 import java.util.Date;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -11,6 +13,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date date;
+    @Min(value = 1, message = "Time should be greater than 0")
     private int time;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY)

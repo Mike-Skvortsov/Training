@@ -5,6 +5,7 @@ import com.termpaper.TermPaper.models.MuscleGroup;
 import com.termpaper.TermPaper.services.ExerciseService;
 import com.termpaper.TermPaper.services.MuscleGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,17 +24,17 @@ public class MuscleGroupController {
         this.exerciseService = exerciseService;
     }
     @GetMapping()
-    public Iterable<MuscleGroup> getFullMuscleGroup()
+    public ResponseEntity<Iterable<MuscleGroup>> getFullMuscleGroup()
     {
-        return muscleGroupService.getAllMuscleGroup();
+        return ResponseEntity.ok(muscleGroupService.getAllMuscleGroup());
     }
     @GetMapping("/{id}")
-    public Optional<MuscleGroup> getByIdMuscleGroup(@PathVariable int id) {
+    public ResponseEntity<Optional<MuscleGroup>> getByIdMuscleGroup(@PathVariable int id) {
         Optional<MuscleGroup> muscleGroup = muscleGroupService.getByIdMuscle(id);
         if (muscleGroup.isPresent()) {
             List<Exercise> exercises = (List<Exercise>) exerciseService.getAllExercisesInMuscleGroup(id);
             muscleGroup.get().setExercises(exercises);
         }
-        return muscleGroup;
+        return ResponseEntity.ok(muscleGroup);
     }
 }

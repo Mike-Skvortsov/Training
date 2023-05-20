@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
-@Table (name = "trainings")
+@Table(name = "trainings")
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,18 +19,22 @@ public class Training {
     private int progress;
     private boolean isActive;
     @JsonIdentityReference(alwaysAsId = true)
-    @OneToMany(mappedBy = "training", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "training", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<TrainingExercise> trainingExercises;
+
+    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "trainingPlan_id")
+    private TrainingPlan trainingPlan;
     public Training(){}
 
-    public Training(int id, String name, String description, int time, int progress, boolean isActive, List<TrainingExercise> trainingExercises) {
+    public Training(int id, String name, String description, int time, int progress, boolean isActive) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.time = time;
         this.progress = progress;
         this.isActive = isActive;
-        this.trainingExercises = trainingExercises;
     }
 
     public int getId() {
@@ -73,11 +77,11 @@ public class Training {
         this.progress = progress;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
