@@ -19,18 +19,18 @@ public class ExerciseController {
         this.exerciseService = exerciseService;
     }
     @GetMapping("/{id}")
-    public Optional<Exercise> getByIdUser(@PathVariable int id)
+    public Optional<Exercise> getByIdExercise(@PathVariable int id)
     {
         return exerciseService.getByIdExercise(id);
     }
     @GetMapping("/all")
-    public Iterable<Exercise> getAllUsers()
+    public Iterable<Exercise> getAllExercises()
     {
         return exerciseService.getAllExercises();
     }
-    @GetMapping("/MuscleGroup/{id}")
-    public  Iterable<Exercise> getAllExercisesInMuscleGroup(@PathVariable int id)
+    @GetMapping("/MuscleGroup/{muscleGroupId}")
+    public  Iterable<Exercise> getAllExercisesInMuscleGroup(@PathVariable int muscleGroupId)
     {
-        return exerciseService.getAllExercisesInMuscleGroup(id);
+        return exerciseService.getAllExercisesInMuscleGroup(muscleGroupId);
     }
 }

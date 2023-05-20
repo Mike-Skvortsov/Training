@@ -2,6 +2,7 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import javax.validation.constraints.*;
 
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -11,12 +12,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name is required")
     private String name;
+    @Email(message = "Email should be valid")
     private String email;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Min(value = 1, message = "Age should be greater than 0")
     private int age;
+    @DecimalMin(value = "0.1", message = "Height should be greater than 0")
     private float height;
+    @DecimalMin(value = "0.1", message = "Weight should be greater than 0")
     private float weight;
     @JsonIdentityReference(alwaysAsId = true)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

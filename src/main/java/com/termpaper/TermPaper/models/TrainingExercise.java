@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "trainingExercises")
 public class TrainingExercise {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int sets;
     private int repeats;
@@ -18,7 +18,7 @@ public class TrainingExercise {
     private Training training;
 
     @JsonIdentityReference(alwaysAsId = true)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
     public TrainingExercise()

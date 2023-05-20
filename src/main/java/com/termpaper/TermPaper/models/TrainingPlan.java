@@ -12,7 +12,7 @@ import java.util.List;
 @Table (name = "trainingPlans")
 public class TrainingPlan {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @JsonIdentityReference(alwaysAsId = true)

@@ -34,5 +34,4 @@ public class MuscleGroupController {
         }
         return muscleGroup;
     }
-
 }
