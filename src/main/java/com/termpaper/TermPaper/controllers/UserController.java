@@ -36,7 +36,7 @@ public class UserController {
         User createdUser = userService.createAndUpdateUser(model);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @Valid @RequestBody User userDetails) {
         Optional<User> optionalUser = userService.getUser(id);
         if (optionalUser.isPresent()) {
@@ -53,7 +53,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
         Optional<User> optionalUser = userService.getUser(id);
         if (optionalUser.isPresent()) {
