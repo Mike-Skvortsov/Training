@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class ExerciseService {
     @Autowired
     private final ExerciseRepository exerciseRepository;
-    public ExerciseService(ExerciseRepository exerciseRepository) {
+    private final MuscleGroupRepository muscleGroupRepository;
+    public ExerciseService(ExerciseRepository exerciseRepository, MuscleGroupRepository muscleGroupRepository) {
         this.exerciseRepository = exerciseRepository;
+        this.muscleGroupRepository = muscleGroupRepository;
     }
     public Optional<Exercise> getByIdExercise(int id)
     {
@@ -24,8 +27,8 @@ public class ExerciseService {
     {
         return exerciseRepository.findAll();
     }
-    public Iterable<Exercise> getAllExercisesInMuscleGroup(Integer id)
-    {
-        return exerciseRepository.findAllById(Collections.singleton(id));
+    public List<Exercise> getAllExercisesInMuscleGroup(Integer id) {
+        Optional<MuscleGroup> muscleGroup = muscleGroupRepository.findById(id);
+        return muscleGroup.get().getExercises();
     }
 }

@@ -37,4 +37,8 @@ public class MuscleGroupController {
         }
         return ResponseEntity.ok(muscleGroup);
     }
+    @GetMapping("/exercises/{muscleGroupId}")
+    public ResponseEntity<Iterable<Exercise>> getAllExercisesInMuscleGroup(@PathVariable int muscleGroupId) {
+        return ResponseEntity.ok(exerciseService.getAllExercisesInMuscleGroup(muscleGroupId));
+    }
 }
