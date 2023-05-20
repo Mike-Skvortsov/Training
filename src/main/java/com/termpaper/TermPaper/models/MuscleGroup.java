@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table (name = "muscleGroups")
 public class MuscleGroup {
@@ -16,7 +15,7 @@ public class MuscleGroup {
     private String title;
     @NotBlank(message = "Icon is required")
     private byte[] icon;
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "exercise_muscle_group",
@@ -25,10 +24,11 @@ public class MuscleGroup {
     )
     private List<Exercise> exercises;
     public MuscleGroup(){}
-    public MuscleGroup(int id, String title, byte[] icon) {
+    public MuscleGroup(int id, String title, byte[] icon, List<Exercise> exercises) {
         this.id = id;
         this.title = title;
         this.icon = icon;
+        this.exercises = exercises;
     }
 
     public int getId() {
