@@ -12,10 +12,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name is required")
+    @NotEmpty(message = "Name is required")
     private String name;
     @Email(message = "Email should be valid")
     private String email;
+    @NotNull(message = "Gender is required")
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Min(value = 1, message = "Age should be greater than 0")

@@ -3,6 +3,7 @@ package com.termpaper.TermPaper.models;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -11,7 +12,9 @@ public class MuscleGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Title is required")
     private String title;
+    @NotBlank(message = "Icon is required")
     private String icon;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(fetch = FetchType.LAZY)
