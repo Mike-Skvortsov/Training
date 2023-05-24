@@ -1,6 +1,5 @@
 package com.termpaper.TermPaper.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -24,14 +23,6 @@ public class TrainingPlan {
     @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Training> trainings;
     public TrainingPlan(){}
-
-    public TrainingPlan(int id, String name, List<Training> trainings, String description, byte[] image) {
-        this.id = id;
-        this.name = name;
-        this.trainings = trainings;
-        this.description = description;
-        this.image = image;
-    }
 
     public String getDescription() {
         return description;

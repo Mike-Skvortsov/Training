@@ -14,10 +14,10 @@ public class TrainingExercise {
     @Min(value = 1, message = "Sets should be greater than 0")
 
     private int sets;
-    @Min(value = 1, message = "Sets should be greater than 0")
+    @Min(value = 1, message = "Repeats should be greater than 0")
 
     private int repeats;
-    @Min(value = 1, message = "restTime should be greater than 0")
+    @Min(value = 1, message = "Rest time should be greater than 0")
 
     private short restTime;
     @JsonIdentityReference(alwaysAsId = true)
@@ -26,7 +26,7 @@ public class TrainingExercise {
     private Training training;
 
     @JsonIdentityReference(alwaysAsId = true)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
     public TrainingExercise()

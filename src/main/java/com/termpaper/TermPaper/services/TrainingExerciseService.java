@@ -13,8 +13,10 @@ import java.util.Optional;
 public class TrainingExerciseService {
     @Autowired
     private final TrainingExerciseRepository trainingExerciseRepository;
-    public TrainingExerciseService(TrainingExerciseRepository trainingExerciseRepository) {
+    private final TrainingRepository trainingRepository;
+    public TrainingExerciseService(TrainingExerciseRepository trainingExerciseRepository, TrainingRepository trainingRepository) {
         this.trainingExerciseRepository = trainingExerciseRepository;
+        this.trainingRepository = trainingRepository;
     }
     public TrainingExercise create(TrainingExercise model)
     {
@@ -25,9 +27,10 @@ public class TrainingExerciseService {
     {
         return trainingExerciseRepository.findById(id);
     }
-    public Iterable<TrainingExercise> getAllTrainingExercise()
+    public Iterable<TrainingExercise> getAllTrainingExerciseInTrain(int trainingId)
     {
-        return trainingExerciseRepository.findAll();
+        Optional<Training> training = trainingRepository.findById(trainingId);
+        return training.get().getTrainingExercises();
     }
     public TrainingExercise updateTrainingExercise(int id, TrainingExercise trainingExerciseDetails) {
         Optional<TrainingExercise> optionalTrainingExercise = trainingExerciseRepository.findById(id);
