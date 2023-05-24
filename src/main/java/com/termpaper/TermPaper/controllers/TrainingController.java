@@ -26,16 +26,16 @@ public class TrainingController {
         return ResponseEntity.ok(trainingService.getAllTraining());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Training>> getByIdTrainingExercise(@PathVariable int id)
+    public ResponseEntity<Optional<Training>> getByIdTraining(@PathVariable int id)
     {
         return ResponseEntity.ok(trainingService.getByIdTraining(id));
     }
     @PostMapping("/create")
-    public ResponseEntity<Training> createUser(@RequestBody @Valid Training model) {
+    public ResponseEntity<Training> createTraining(@RequestBody @Valid Training model) {
         return new ResponseEntity<>(trainingService.createTraining(model), HttpStatus.CREATED);
     }
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Training> updateUser(@PathVariable int id, @Valid @RequestBody Training training) {
+    public ResponseEntity<Training> updateTraining(@PathVariable int id, @Valid @RequestBody Training training) {
         Training updatedTraining = trainingService.updateTraining(id, training);
         if (updatedTraining != null) {
             return ResponseEntity.ok(updatedTraining);
@@ -44,7 +44,7 @@ public class TrainingController {
         }
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteByIdTraining(@PathVariable int id) {
         boolean isDeleted = trainingService.deleteTraining(id);
         if (isDeleted) {
             return ResponseEntity.ok().build();

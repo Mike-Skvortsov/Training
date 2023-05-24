@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "exercises")
 public class Exercise {
@@ -17,7 +18,7 @@ public class Exercise {
     private String description;
     @NotBlank(message = "Image is required")
     private byte[] image;
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = false)
     @OneToOne(mappedBy = "exercise", fetch = FetchType.LAZY)
     private TrainingExercise trainingExercise;
     public Exercise()

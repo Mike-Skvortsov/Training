@@ -17,7 +17,7 @@ public class TrainingExercise {
     @Min(value = 1, message = "Sets should be greater than 0")
 
     private int repeats;
-    @Min(value = 1, message = "Sets should be greater than 0")
+    @Min(value = 1, message = "restTime should be greater than 0")
 
     private short restTime;
     @JsonIdentityReference(alwaysAsId = true)
