@@ -1,6 +1,8 @@
 package com.termpaper.TermPaper.controllers;
 
+import com.termpaper.TermPaper.DTO.muscleGroupDTO.MuscleGroupWithoutExercisesDTO;
 import com.termpaper.TermPaper.DTO.trainingDTO.GetAllTrainingDTO;
+import com.termpaper.TermPaper.DTO.trainingDTO.GetOneTrainingWithTrainingExercises;
 import com.termpaper.TermPaper.mappers.TrainingMapper;
 import com.termpaper.TermPaper.models.Training;
 import com.termpaper.TermPaper.services.TrainingService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
@@ -27,21 +30,24 @@ public class TrainingController {
         this.trainingMapper = trainingMapper;
     }
     @GetMapping()
-    public ResponseEntity<Iterable<GetAllTrainingDTO>> getAllTrainings()
-    {
-        Iterable<Training> trainings =  trainingService.getAllTraining();
-        List<GetAllTrainingDTO> trainingsDTO = StreamSupport.stream(trainings.spliterator(), false)
-                .map(trainingMapper::toTrainingDTOWithoutOtherClasses)
-                .toList();
+    public ResponseEntity<Iterable<GetOneTrainingWithTrainingExercises>> getAllTrainings() {
+        List<Training> trainings = (List<Training>) trainingService.getAllTraining();
+        List<GetOneTrainingWithTrainingExercises> trainingsDTO = trainings.stream()
+                .map(trainingMapper::toTrainingDTOWithTrainingExercise)
+                .collect(Collectors.toList());
         if (trainingsDTO.isEmpty()) {
             throw new ExceptionController.ExerciseNotFoundException("Training is not found");
         }
         return ResponseEntity.ok(trainingsDTO);
     }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Training>> getByIdTraining(@PathVariable int id)
+    public ResponseEntity<GetOneTrainingWithTrainingExercises> getByIdTraining(@PathVariable int id)
     {
-        return ResponseEntity.ok(trainingService.getByIdTraining(id));
+        Training training = trainingService.getByIdTraining(id)
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Object with this id does not exist: " + id));;
+        return ResponseEntity.ok(trainingMapper.toTrainingDTOWithTrainingExercise(training));
     }
     @PostMapping("/create")
     public ResponseEntity<Training> createTraining(@RequestBody @Valid Training model) {

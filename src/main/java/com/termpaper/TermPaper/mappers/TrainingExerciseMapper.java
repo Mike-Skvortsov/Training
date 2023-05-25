@@ -6,12 +6,13 @@ import com.termpaper.TermPaper.models.TrainingExercise;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = ExerciseMapper.class)
 public interface TrainingExerciseMapper {
     @Mapping(source = "exercise", target = "exercise", qualifiedByName = "toExerciseDTO")
     TrainingExerciseDTO toTrainingExercise(TrainingExercise trainingExercise);
 
-    TrainingExerciseDTOWithoutTrainingAndExercise toTrainingExerciseDTOWithoutTrainingAndExercise(TrainingExercise trainingExercise);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "training", ignore = true)
     @Mapping(target = "exercise", ignore = true)

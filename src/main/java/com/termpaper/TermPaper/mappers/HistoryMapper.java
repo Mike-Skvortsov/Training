@@ -7,6 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = TrainingPlanMapper.class)
 public interface HistoryMapper {
-    @Mapping(source = "trainingPlan", target = "trainingPlan")
+    @Mapping(source = "training", target = "training")
     HistoryWithoutUserDTO toHistoryWithoutUserDTO(History history);
 }

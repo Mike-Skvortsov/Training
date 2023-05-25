@@ -1,6 +1,6 @@
 package com.termpaper.TermPaper.DTO.trainingDTO;
 
-import com.termpaper.TermPaper.models.TrainingExercise;
+import com.termpaper.TermPaper.DTO.trainingExerciseDTO.TrainingExerciseDTO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class GetOneTrainingWithTrainingExercises {
     private int KCal;
     private int progress;
     private boolean isDone;
-    private List<TrainingExercise> trainingExercises;
+    private List<TrainingExerciseDTO> trainingExercises;
 
     public String getName() {
         return name;
@@ -61,11 +61,11 @@ public class GetOneTrainingWithTrainingExercises {
         isDone = done;
     }
 
-    public List<TrainingExercise> getTrainingExercises() {
+    public List<TrainingExerciseDTO> getTrainingExercises() {
         return trainingExercises;
     }
 
-    public void setTrainingExercises(List<TrainingExercise> trainingExercises) {
+    public void setTrainingExercises(List<TrainingExerciseDTO> trainingExercises) {
         this.trainingExercises = trainingExercises;
     }
 }
