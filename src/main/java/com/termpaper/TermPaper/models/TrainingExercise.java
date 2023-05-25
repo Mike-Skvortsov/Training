@@ -12,13 +12,10 @@ public class TrainingExercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Min(value = 1, message = "Sets should be greater than 0")
-
     private int sets;
     @Min(value = 1, message = "Repeats should be greater than 0")
-
     private int repeats;
     @Min(value = 1, message = "Rest time should be greater than 0")
-
     private short restTime;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,22 +23,13 @@ public class TrainingExercise {
     private Training training;
 
     @JsonIdentityReference(alwaysAsId = true)
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
     public TrainingExercise()
     {
 
     }
-    public TrainingExercise(int id, int sets, int repeats, short restTime, Training training, Exercise exercise) {
-        this.id = id;
-        this.sets = sets;
-        this.repeats = repeats;
-        this.restTime = restTime;
-        this.training = training;
-        this.exercise = exercise;
-    }
-
     public int getId() {
         return id;
     }
@@ -58,16 +46,13 @@ public class TrainingExercise {
         return repeats;
     }
 
-
     public short getRestTime() {
         return restTime;
     }
 
-
     public Exercise getExercise() {
         return exercise;
     }
-
 
     public Training getTraining() {
         return training;

@@ -36,7 +36,7 @@ public class TrainingService {
             Training updatedTraining = optionalTraining.get();
             updatedTraining.setName(training.getName());
             updatedTraining.setProgress(training.getProgress());
-            updatedTraining.setIsActive(training.getIsActive());
+            updatedTraining.setDone(training.isDone());
             updatedTraining.setTime(training.getTime());
             updatedTraining.setDescription(training.getDescription());
             return trainingRepository.save(updatedTraining);

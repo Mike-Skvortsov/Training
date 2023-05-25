@@ -3,6 +3,7 @@ package com.termpaper.TermPaper.models;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -13,6 +14,7 @@ public class MuscleGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Title is required")
+    @Size(max = 100, message = "cannot use more than 100 characters")
     private String title;
     @NotBlank(message = "Icon is required")
     private byte[] icon;

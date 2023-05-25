@@ -2,7 +2,9 @@ package com.termpaper.TermPaper.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -12,12 +14,19 @@ public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "name is required!")
+    @Size(min = 50, max = 500, message = "cannot use more than 500 or less than 50 characters!")
     private String name;
+    @Size(max = 1000, message = ("cannot use more than 1000 characters!"))
     private String description;
+    @Min(value = 1, message = "time cannot be less than 0!")
     private int time;
+    @Column(name = "kcal")
+    @Min(value = 1, message = "KCal should be greater than 0!")
+    private int KCal;
+    @Min(value = 1, message = "Progress should be greater than 0!")
     private int progress;
-    private boolean isActive;
+    private boolean isDone;
     @JsonIdentityReference(alwaysAsId = true)
     @OneToMany(mappedBy = "training", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<TrainingExercise> trainingExercises;
@@ -28,13 +37,20 @@ public class Training {
     private TrainingPlan trainingPlan;
     public Training(){}
 
-    public Training(int id, String name, String description, int time, int progress, boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.time = time;
-        this.progress = progress;
-        this.isActive = isActive;
+    public TrainingPlan getTrainingPlan() {
+        return trainingPlan;
+    }
+
+    public void setTrainingPlan(TrainingPlan trainingPlan) {
+        this.trainingPlan = trainingPlan;
+    }
+
+    public int getKCal() {
+        return KCal;
+    }
+
+    public void setKCal(int KCal) {
+        this.KCal = KCal;
     }
 
     public int getId() {
@@ -77,13 +93,6 @@ public class Training {
         this.progress = progress;
     }
 
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean active) {
-        isActive = active;
-    }
 
     public List<TrainingExercise> getTrainingExercises() {
         return trainingExercises;
@@ -91,5 +100,13 @@ public class Training {
 
     public void setTrainingExercises(List<TrainingExercise> trainingExercises) {
         this.trainingExercises = trainingExercises;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

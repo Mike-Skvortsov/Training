@@ -5,21 +5,13 @@ import com.termpaper.TermPaper.models.TrainingExercise;
 import java.util.List;
 
 public class TrainingDTO {
-    private int id;
+    private int kcal;
     private String name;
     private String description;
     private int time;
     private int progress;
-    private boolean isActive;
-    private List<TrainingExercise> trainingExercises;
+    private boolean isDone;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -53,19 +45,19 @@ public class TrainingDTO {
         this.progress = progress;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
-    public List<TrainingExercise> getTrainingExercises() {
-        return trainingExercises;
+    public int getKcal() {
+        return kcal;
     }
 
-    public void setTrainingExercises(List<TrainingExercise> trainingExercises) {
-        this.trainingExercises = trainingExercises;
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
     }
 }
