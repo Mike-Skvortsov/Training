@@ -24,7 +24,7 @@ public class Training {
     @Column(name = "kcal")
     @Min(value = 1, message = "KCal should be greater than 0!")
     private int KCal;
-    @Min(value = 1, message = "Progress should be greater than 0!")
+    @Min(value = 0, message = "Progress should be greater than 0!")
     private int progress;
     private boolean isDone;
     @JsonIdentityReference(alwaysAsId = true)

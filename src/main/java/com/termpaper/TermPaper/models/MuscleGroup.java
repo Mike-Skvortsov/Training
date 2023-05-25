@@ -17,6 +17,7 @@ public class MuscleGroup {
     @Size(max = 100, message = "cannot use more than 100 characters")
     private String title;
     @NotBlank(message = "Icon is required")
+    @Size(max = 4000)
     private byte[] icon;
     @JsonIdentityReference(alwaysAsId = false)
     @ManyToMany(fetch = FetchType.LAZY)

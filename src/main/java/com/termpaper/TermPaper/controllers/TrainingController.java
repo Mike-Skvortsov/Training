@@ -1,5 +1,7 @@
 package com.termpaper.TermPaper.controllers;
 
+import com.termpaper.TermPaper.DTO.trainingDTO.GetAllTrainingDTO;
+import com.termpaper.TermPaper.mappers.TrainingMapper;
 import com.termpaper.TermPaper.models.Training;
 import com.termpaper.TermPaper.services.TrainingService;
 import jakarta.validation.Valid;
@@ -8,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/trainings")
@@ -16,14 +20,23 @@ public class TrainingController {
     @Autowired
 
     private final TrainingService trainingService;
+    private final TrainingMapper trainingMapper;
     @Autowired
-    public TrainingController(TrainingService trainingService) {
+    public TrainingController(TrainingService trainingService, TrainingMapper trainingMapper) {
         this.trainingService = trainingService;
+        this.trainingMapper = trainingMapper;
     }
     @GetMapping()
-    public ResponseEntity<Iterable<Training>> getFullMuscleGroup()
+    public ResponseEntity<Iterable<GetAllTrainingDTO>> getAllTrainings()
     {
-        return ResponseEntity.ok(trainingService.getAllTraining());
+        Iterable<Training> trainings =  trainingService.getAllTraining();
+        List<GetAllTrainingDTO> trainingsDTO = StreamSupport.stream(trainings.spliterator(), false)
+                .map(trainingMapper::toTrainingDTOWithoutOtherClasses)
+                .toList();
+        if (trainingsDTO.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Training is not found");
+        }
+        return ResponseEntity.ok(trainingsDTO);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Training>> getByIdTraining(@PathVariable int id)

@@ -16,7 +16,7 @@ public class User {
     private String name;
     @Email(message = "Email should be valid")
     private String email;
-    @NotNull(message = "Gender is required")
+    @NotBlank(message = "Gender is required")
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Min(value = 1, message = "Age should be greater than 0")

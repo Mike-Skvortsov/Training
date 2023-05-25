@@ -35,12 +35,20 @@ public class TrainingExerciseController {
         this.trainingService = trainingService;
     }
     @GetMapping("exercises/{trainingId}")
-    public ResponseEntity<Iterable<TrainingExerciseDTO>> getTrainingExercise(@PathVariable int trainingId)
+    public ResponseEntity<?> getTrainingExercise(@PathVariable int trainingId)
     {
+        if(trainingService.getByIdTraining(trainingId).isEmpty())
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Training not found");
+        }
         List<TrainingExercise> trainingExercises = (List<TrainingExercise>) trainingExerciseService.getAllTrainingExerciseInTrain(trainingId);
         List<TrainingExerciseDTO> trainingPlanGetAllDTOs = trainingExercises.stream()
                 .map(trainingExerciseMapper::toTrainingExercise)
                 .collect(Collectors.toList());
+        if (trainingPlanGetAllDTOs.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Training exercises in this training not found");
+        }
         return ResponseEntity.ok(trainingPlanGetAllDTOs);
     }
     //@GetMapping("/{id}")

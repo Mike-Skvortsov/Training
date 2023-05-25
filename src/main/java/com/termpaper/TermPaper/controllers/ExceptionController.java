@@ -22,9 +22,16 @@ public class ExceptionController {
         });
         return ResponseEntity.badRequest().body(errors);
     }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<String> handleNullPointerException(NullPointerException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + ex.getMessage());
+    public static class ExerciseNotFoundException extends RuntimeException {
+        public ExerciseNotFoundException(String message) {
+            super(message);
+        }
     }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ExerciseNotFoundException.class)
+    public ResponseEntity<String> handleExerciseNotFoundException(ExerciseNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+
 }
