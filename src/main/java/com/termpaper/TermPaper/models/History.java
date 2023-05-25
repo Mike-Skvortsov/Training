@@ -21,22 +21,23 @@ public class History {
     private User user;
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trainingPlan_id")
-    private TrainingPlan trainingPlan;
+    @JoinColumn(name = "training_id")
+    private Training training;
     public History(){}
-    public History(int id, Date date, int time, User user, TrainingPlan trainingPlan) {
+    public History(int id, Date date, int time, User user, Training training) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.user = user;
-        this.trainingPlan = trainingPlan;
-    }
-    public TrainingPlan getTrainingPlan() {
-        return trainingPlan;
+        this.training = training;
     }
 
-    public void setTrainingPlan(TrainingPlan trainingPlan) {
-        this.trainingPlan = trainingPlan;
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     public int getId() {
