@@ -26,12 +26,11 @@ public class Training {
     private int KCal;
     @Min(value = 0, message = "Progress should be greater than 0!")
     private int progress;
-    private boolean isDone;
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     @OneToMany(mappedBy = "training", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<TrainingExercise> trainingExercises;
 
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainingPlan_id")
     private TrainingPlan trainingPlan;
@@ -100,13 +99,5 @@ public class Training {
 
     public void setTrainingExercises(List<TrainingExercise> trainingExercises) {
         this.trainingExercises = trainingExercises;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 }

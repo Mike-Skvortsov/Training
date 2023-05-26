@@ -4,7 +4,6 @@ public class TrainingDTO {
     private String name;
     private int time;
     private int progress;
-    private boolean isDone;
 
     public String getName() {
         return name;
@@ -28,13 +27,5 @@ public class TrainingDTO {
 
     public void setProgress(int progress) {
         this.progress = progress;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 }

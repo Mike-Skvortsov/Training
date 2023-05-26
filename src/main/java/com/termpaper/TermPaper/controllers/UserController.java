@@ -18,7 +18,6 @@ import java.util.Optional;
 @Validated
 public class UserController {
     @Autowired
-
     private final UserService userService;
     private final UserMapper userMapper;
     public UserController(UserService userService, UserMapper userMapper)

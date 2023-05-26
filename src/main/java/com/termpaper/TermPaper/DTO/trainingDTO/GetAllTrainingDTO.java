@@ -7,7 +7,6 @@ public class GetAllTrainingDTO {
     private int time;
     private int KCal;
     private int progress;
-    private boolean isDone;
 
     public int getId() {
         return id;
@@ -55,13 +54,5 @@ public class GetAllTrainingDTO {
 
     public void setProgress(int progress) {
         this.progress = progress;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 }

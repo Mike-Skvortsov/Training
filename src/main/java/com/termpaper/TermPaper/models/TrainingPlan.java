@@ -20,7 +20,7 @@ public class TrainingPlan {
 
     private String description;
     private byte[] image;
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Training> trainings;
     public TrainingPlan(){}

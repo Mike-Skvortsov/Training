@@ -10,7 +10,6 @@ public class GetOneTrainingWithTrainingExercises {
     private int time;
     private int KCal;
     private int progress;
-    private boolean isDone;
     private List<TrainingExerciseDTO> trainingExercises;
 
     public String getName() {
@@ -51,14 +50,6 @@ public class GetOneTrainingWithTrainingExercises {
 
     public void setProgress(int progress) {
         this.progress = progress;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 
     public List<TrainingExerciseDTO> getTrainingExercises() {

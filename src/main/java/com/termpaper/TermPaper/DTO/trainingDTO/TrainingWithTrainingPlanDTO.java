@@ -9,7 +9,6 @@ public class TrainingWithTrainingPlanDTO {
     private int time;
     private int KCal;
     private int progress;
-    private boolean isDone;
     private TrainingPlanOnlyNameDTO trainingPlan;
 
     public TrainingPlanOnlyNameDTO getTrainingPlan() {
@@ -66,13 +65,5 @@ public class TrainingWithTrainingPlanDTO {
 
     public void setProgress(int progress) {
         this.progress = progress;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 }
