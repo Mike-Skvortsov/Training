@@ -28,17 +28,20 @@ public class TrainingPlanController {
         this.trainingPlanService = trainingPlanService;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<TrainingPlanWithoutId>> getByIdTrainingPlan(@PathVariable int id)
+    public ResponseEntity<TrainingPlanWithoutId> getByIdTrainingPlan(@PathVariable int id)
     {
-        Optional<TrainingPlan> trainingPlan = trainingPlanService.getByIdTrainingPlan(id);
-        return ResponseEntity.ok(trainingPlan.map(trainingPlanMapper::toDTOWithTrainings));
+
+        TrainingPlan trainingPlan = trainingPlanService.getByIdTrainingPlan(id)
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Training plan with this id does not exist: " + id));
+        return ResponseEntity.ok(trainingPlanMapper.toDTOWithTrainings(trainingPlan));
     }
 
     @GetMapping
     public ResponseEntity<List<TrainingPlanGetAllDTO>> getAllTrainingPlans() {
         List<TrainingPlan> trainingPlans = (List<TrainingPlan>) trainingPlanService.getAllTrainingPlans();
-
-        // Конвертуємо список TrainingPlan в список TrainingPlanGetAllDTO
+        if (trainingPlans.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Training plan in this training not found");
+        }
         List<TrainingPlanGetAllDTO> trainingPlanGetAllDTOs = trainingPlans.stream()
                 .map(trainingPlanMapper::toGetAllWithIdDTO)
                 .collect(Collectors.toList());

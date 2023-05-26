@@ -32,12 +32,12 @@ public class TrainingController {
     @GetMapping()
     public ResponseEntity<Iterable<GetOneTrainingWithTrainingExercises>> getAllTrainings() {
         List<Training> trainings = (List<Training>) trainingService.getAllTraining();
+        if (trainings.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Training is not found");
+        }
         List<GetOneTrainingWithTrainingExercises> trainingsDTO = trainings.stream()
                 .map(trainingMapper::toTrainingDTOWithTrainingExercise)
                 .collect(Collectors.toList());
-        if (trainingsDTO.isEmpty()) {
-            throw new ExceptionController.ExerciseNotFoundException("Training is not found");
-        }
         return ResponseEntity.ok(trainingsDTO);
     }
 
@@ -46,7 +46,7 @@ public class TrainingController {
     public ResponseEntity<GetOneTrainingWithTrainingExercises> getByIdTraining(@PathVariable int id)
     {
         Training training = trainingService.getByIdTraining(id)
-                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Object with this id does not exist: " + id));;
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Training with this id does not exist: " + id));;
         return ResponseEntity.ok(trainingMapper.toTrainingDTOWithTrainingExercise(training));
     }
     @PostMapping("/create")

@@ -26,14 +26,13 @@ public class MuscleGroupController {
     @GetMapping()
     public ResponseEntity<Iterable<MuscleGroupWithoutExercisesDTO>> getFullMuscleGroup()
     {
-        Iterable<MuscleGroup> muscleGroups = muscleGroupService.getAllMuscleGroup();
-        List<MuscleGroupWithoutExercisesDTO> muscleGroupWithoutExercisesDTOS = StreamSupport.stream(muscleGroups.spliterator(), false)
+        List<MuscleGroup> muscleGroups = (List<MuscleGroup>) muscleGroupService.getAllMuscleGroup();
+        if (muscleGroups.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Muscle group not found");
+        }
+        List<MuscleGroupWithoutExercisesDTO> muscleGroupWithoutExercisesDTOS = muscleGroups.stream()
                 .map(muscleGroupMapper::toMuscleGroupWithoutExercises)
                 .collect(Collectors.toList());
-
-        if (muscleGroupWithoutExercisesDTOS.isEmpty()) {
-            throw new ExceptionController.ExerciseNotFoundException("No muscle group found");
-        }
         return ResponseEntity.ok(muscleGroupWithoutExercisesDTOS);
     }
 }

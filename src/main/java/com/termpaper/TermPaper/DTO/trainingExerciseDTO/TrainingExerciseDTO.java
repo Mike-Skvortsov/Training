@@ -3,6 +3,7 @@ package com.termpaper.TermPaper.DTO.trainingExerciseDTO;
 import com.termpaper.TermPaper.DTO.exerciseDTO.ExerciseDTO;
 
 public class TrainingExerciseDTO {
+    private Long id;
     private int sets;
     private int repeats;
     private short restTime;
@@ -10,6 +11,14 @@ public class TrainingExerciseDTO {
 
     public ExerciseDTO getExercise() {
         return exercise;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setExercise(ExerciseDTO exercise) {

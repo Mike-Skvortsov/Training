@@ -36,13 +36,14 @@ public class HistoryController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllHistorySpecificUser(@PathVariable int userId)
     {
-        Optional<User> user = userService.getUser(userId);
-        if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found");
+        User user = userService.getUser(userId)
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("User with this id does not exist: " + userId));
+
+        List<History> history = (List<History>) historyService.getAllHistoriesThisUser(userId);
+        if (history.isEmpty()) {
+            throw new ExceptionController.ExerciseNotFoundException("Histories not found");
         }
-        Iterable<History> history = historyService.getAllHistoriesThisUser(userId);
-        List<HistoryWithoutUserDTO> historyWithoutUserDTOS = StreamSupport.stream(history.spliterator(), false)
+        List<HistoryWithoutUserDTO> historyWithoutUserDTOS = history.stream()
                 .map(historyMapper::toHistoryWithoutUserDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(historyWithoutUserDTOS);

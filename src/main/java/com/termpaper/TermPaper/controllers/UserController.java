@@ -1,5 +1,7 @@
 package com.termpaper.TermPaper.controllers;
 
+import com.termpaper.TermPaper.DTO.userDTO.UserDTOWithoutIdAndHistories;
+import com.termpaper.TermPaper.mappers.UserMapper;
 import com.termpaper.TermPaper.models.User;
 import com.termpaper.TermPaper.services.UserService;
 import jakarta.validation.Valid;
@@ -18,14 +20,18 @@ public class UserController {
     @Autowired
 
     private final UserService userService;
-    public UserController(UserService userService)
+    private final UserMapper userMapper;
+    public UserController(UserService userService, UserMapper userMapper)
     {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getByIdUser(@PathVariable int id)
+    public ResponseEntity<UserDTOWithoutIdAndHistories> getByIdUser(@PathVariable int id)
     {
-        return ResponseEntity.ok(userService.getUser(id));
+        User user = userService.getUser(id)
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Training with this id does not exist: " + id));
+        return ResponseEntity.ok(userMapper.toUserDTOWithoutIdAndHistories(user));
     }
     @GetMapping
     public ResponseEntity<Iterable<User>> getAllUsers() {

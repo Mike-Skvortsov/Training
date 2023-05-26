@@ -1,5 +1,6 @@
 package com.termpaper.TermPaper.mappers;
 
+import com.termpaper.TermPaper.DTO.trainingDTO.TrainingWithTrainingPlanDTO;
 import com.termpaper.TermPaper.DTO.trainingPlanDTO.TrainingPlanGetAllDTO;
 import com.termpaper.TermPaper.DTO.trainingPlanDTO.TrainingPlanWithoutId;
 import com.termpaper.TermPaper.models.TrainingPlan;
@@ -13,6 +14,6 @@ public interface TrainingPlanMapper {
     TrainingPlanWithoutId toDTOWithTrainings(TrainingPlan trainingPlan);
 
     TrainingPlanGetAllDTO toGetAllWithIdDTO(TrainingPlan trainingPlan);
-
+    TrainingWithTrainingPlanDTO toTrainingWithTrainingPlanDTO(TrainingPlan trainingPlan);
     TrainingPlan toEntity(TrainingPlanWithoutId trainingPlanDTO);
 }

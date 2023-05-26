@@ -1,6 +1,7 @@
 package com.termpaper.TermPaper.DTO.historyDTO;
 
 import com.termpaper.TermPaper.DTO.trainingDTO.TrainingDTO;
+import com.termpaper.TermPaper.DTO.trainingDTO.TrainingWithTrainingPlanDTO;
 import com.termpaper.TermPaper.DTO.trainingPlanDTO.TrainingPlanGetAllDTO;
 
 import java.util.Date;
@@ -9,13 +10,13 @@ public class HistoryWithoutUserDTO {
     private int id;
     private Date date;
     private int time;
-    private TrainingDTO training;
+    private TrainingWithTrainingPlanDTO training;
 
-    public TrainingDTO getTraining() {
+    public TrainingWithTrainingPlanDTO getTraining() {
         return training;
     }
 
-    public void setTraining(TrainingDTO training) {
+    public void setTraining(TrainingWithTrainingPlanDTO training) {
         this.training = training;
     }
 

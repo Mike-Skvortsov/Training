@@ -41,15 +41,13 @@ public class ExerciseController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ExerciseDTO>> getAllExercises() {
-        Iterable<Exercise> exercises = exerciseService.getAllExercises();
-        List<ExerciseDTO> exercisesDTO = StreamSupport.stream(exercises.spliterator(), false)
-                .map(exerciseMapper::toExerciseDTO)
-                .collect(Collectors.toList());
-
-        if (exercisesDTO.isEmpty()) {
+        List<Exercise> exercises = (List<Exercise>) exerciseService.getAllExercises();
+        if (exercises.isEmpty()) {
             throw new ExceptionController.ExerciseNotFoundException("No exercises found");
         }
-
+        List<ExerciseDTO> exercisesDTO = exercises.stream()
+                .map(exerciseMapper::toExerciseDTO)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(exercisesDTO);
     }
     @GetMapping("/muscleGroup/{muscleId}")
