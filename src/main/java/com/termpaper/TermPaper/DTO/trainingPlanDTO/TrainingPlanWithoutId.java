@@ -1,6 +1,6 @@
 package com.termpaper.TermPaper.DTO.trainingPlanDTO;
 
-import com.termpaper.TermPaper.models.Training;
+import com.termpaper.TermPaper.DTO.trainingDTO.GetOneTrainingWithTrainingExercises;
 
 import java.util.List;
 
@@ -8,7 +8,15 @@ public class TrainingPlanWithoutId {
         private String name;
         private String description;
         private byte[] image;
-        private List<Training> trainings;
+        private List<GetOneTrainingWithTrainingExercises> trainings;
+
+    public List<GetOneTrainingWithTrainingExercises> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<GetOneTrainingWithTrainingExercises> trainings) {
+        this.trainings = trainings;
+    }
 
     public String getName() {
         return name;
@@ -32,13 +40,5 @@ public class TrainingPlanWithoutId {
 
     public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    public List<Training> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(List<Training> trainings) {
-        this.trainings = trainings;
     }
 }
