@@ -50,7 +50,8 @@ public class TrainingController {
     @PostMapping("/create")
     public ResponseEntity<Training> createTraining(@RequestBody @Valid GetOneTrainingWithoutTrainingExercises model,
                                                    @RequestParam int trainingPlanId) {
-        TrainingPlan trainingPlan = trainingPlanService.getByIdTrainingPlan(trainingPlanId).get();
+        TrainingPlan trainingPlan = trainingPlanService.getByIdTrainingPlan(trainingPlanId)
+                .orElseThrow(() -> new ExceptionController.ExerciseNotFoundException("Training plan with this id does not exist: " + trainingPlanId));
         Training training = trainingMapper.toTraining(model);
         training.setTrainingPlan(trainingPlan);
         return new ResponseEntity<>(trainingService.createTraining(training), HttpStatus.CREATED);

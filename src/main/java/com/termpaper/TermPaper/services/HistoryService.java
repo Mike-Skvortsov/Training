@@ -22,4 +22,9 @@ public class HistoryService {
         User user = userRepository.findById(userId).get();
         return user.getHistories();
     }
+    public History createHistory(History history)
+    {
+        historyRepository.save(history);
+        return history;
+    }
 }

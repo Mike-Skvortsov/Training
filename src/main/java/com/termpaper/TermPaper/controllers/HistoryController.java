@@ -1,24 +1,21 @@
 package com.termpaper.TermPaper.controllers;
 
 import com.termpaper.TermPaper.DTO.historyDTO.HistoryWithoutUserDTO;
+import com.termpaper.TermPaper.DTO.trainingExerciseDTO.TrainingExerciseDTOWithoutTrainingAndExercise;
 import com.termpaper.TermPaper.mappers.HistoryMapper;
-import com.termpaper.TermPaper.models.History;
-import com.termpaper.TermPaper.models.User;
+import com.termpaper.TermPaper.models.*;
 import com.termpaper.TermPaper.services.HistoryService;
+import com.termpaper.TermPaper.services.TrainingService;
 import com.termpaper.TermPaper.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/histories")
@@ -27,11 +24,13 @@ public class HistoryController {
     private final HistoryService historyService;
     private final HistoryMapper historyMapper;
     private final UserService userService;
+    private final TrainingService trainingService;
 
-    public HistoryController(HistoryService historyService, HistoryMapper historyMapper, UserService userService) {
+    public HistoryController(HistoryService historyService, HistoryMapper historyMapper, UserService userService, TrainingService trainingService) {
         this.historyService = historyService;
         this.historyMapper = historyMapper;
         this.userService = userService;
+        this.trainingService = trainingService;
     }
     @GetMapping("/{userId}")
     public ResponseEntity<?> getAllHistorySpecificUser(@PathVariable int userId)
@@ -47,5 +46,26 @@ public class HistoryController {
                 .map(historyMapper::toHistoryWithoutUserDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(historyWithoutUserDTOS);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<History> createTrainingExercise(@RequestBody @Valid HistoryWithoutUserDTO model,
+                                                          @RequestParam int userId,
+                                                          @RequestParam int trainingId) {
+        if (trainingService.getByIdTraining(trainingId).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training not found");
+        }
+
+        if (userService.getUser(userId).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        User user = userService.getUser(userId).get();
+        Training training = trainingService.getByIdTraining(trainingId).get();
+
+        History history = historyMapper.toHistory(model);
+
+        history.setUser(user);
+        history.setTraining(training);
+
+        return new ResponseEntity<>(historyService.createHistory(history), HttpStatus.CREATED);
     }
 }

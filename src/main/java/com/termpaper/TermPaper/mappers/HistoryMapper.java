@@ -9,4 +9,6 @@ import org.mapstruct.Mapping;
 public interface HistoryMapper {
     @Mapping(source = "training", target = "training")
     HistoryWithoutUserDTO toHistoryWithoutUserDTO(History history);
+
+    History toHistory(HistoryWithoutUserDTO historyWithoutUserDTO);
 }
