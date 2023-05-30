@@ -1,6 +1,5 @@
 package com.termpaper.TermPaper.DTO.trainingPlanDTO;
 
-import com.termpaper.TermPaper.DTO.trainingDTO.GetOneTrainingWithTrainingExercises;
 import com.termpaper.TermPaper.DTO.trainingDTO.GetOneTrainingWithTrainingExercisesAndId;
 
 import java.util.List;

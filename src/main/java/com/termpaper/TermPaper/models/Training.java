@@ -15,7 +15,7 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "name is required!")
-    @Size(min = 50, max = 500, message = "cannot use more than 500 or less than 50 characters!")
+    @Size(max = 500, message = "cannot use more than 500 or less than 50 characters!")
     private String name;
     @Size(max = 1000, message = ("cannot use more than 1000 characters!"))
     private String description;

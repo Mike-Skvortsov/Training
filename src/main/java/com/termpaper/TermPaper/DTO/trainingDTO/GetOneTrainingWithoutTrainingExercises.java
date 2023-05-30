@@ -1,16 +1,11 @@
 package com.termpaper.TermPaper.DTO.trainingDTO;
 
-import com.termpaper.TermPaper.DTO.trainingExerciseDTO.TrainingExerciseDTO;
-
-import java.util.List;
-
-public class GetOneTrainingWithTrainingExercises {
+public class GetOneTrainingWithoutTrainingExercises {
     private String name;
     private String description;
     private int time;
     private int KCal;
     private int progress;
-    private List<TrainingExerciseDTO> trainingExercises;
 
     public String getName() {
         return name;
@@ -50,13 +45,5 @@ public class GetOneTrainingWithTrainingExercises {
 
     public void setProgress(int progress) {
         this.progress = progress;
-    }
-
-    public List<TrainingExerciseDTO> getTrainingExercises() {
-        return trainingExercises;
-    }
-
-    public void setTrainingExercises(List<TrainingExerciseDTO> trainingExercises) {
-        this.trainingExercises = trainingExercises;
     }
 }

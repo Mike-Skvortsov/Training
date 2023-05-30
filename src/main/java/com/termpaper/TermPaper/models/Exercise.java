@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "exercises")
 public class Exercise {
     @Id
